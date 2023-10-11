@@ -123,6 +123,43 @@ vios = Car("VIOS", viosModel)
 hilux = Car("HILUX", hiluxModel)
 # endregion
 
+@staticmethod
+def create_car():
+        brand_name = input("Masukkan nama merek mobil: ").upper()
+        models = []
+        while True:
+            model_name = input("Masukkan nama model mobil (klik enter untuk selesai): ")
+            if not model_name:
+                break
+            price = int(input("Masukkan harga model: "))
+            new_model = Model(model_name, price)  
+            models.append(new_model)
+        new_car = Car(brand_name, models)
+        AllCars.append(new_car)
+        print(f"Merek mobil '{brand_name}' dan model-modelnya telah ditambahkan.")
+
+
+@staticmethod
+def update_car_name():
+        old_name = input("Masukkan nama merek mobil yang akan diubah: ").upper()
+        for car in AllCars:
+            if car.name == old_name:
+                new_name = input("Masukkan nama baru untuk merek mobil: ").upper()
+                car.update_brand_name(new_name)
+                print(f"Nama merek mobil '{old_name}' telah diubah menjadi '{new_name}'.")
+                return
+        print(f"Merek mobil '{old_name}' tidak ditemukan.")
+
+@staticmethod
+def delete_model_from_car():
+        car_name = input("Masukkan nama merek mobil: ")
+        for car in AllCars:
+            if car.name == car_name:
+                model_name = input("Masukkan nama model yang akan dihapus: ")
+                car.delete_model(model_name)
+                print(f"Model mobil '{model_name}' dari merek '{car_name}' telah dihapus.")
+                return
+        print(f"Merek mobil '{car_name}' tidak ditemukan.")
 
 AllCars = [
     avanza, calya, veloz, agya, innova, innova_zenix,
@@ -136,37 +173,49 @@ while True:
     print("1. Cari merk mobil")
     print("2. Display semua mobil")
     print("3. Ajukan Kredit")
-    print("4. Exit")
-    choice = input("Masukan pilihan (1/2/3/4): ")
+    print("4. Tambah Mobil Baru")
+    print("5. Update Nama Merek Mobil")
+    print("6. Hapus Model Mobil")
+    print("7. Exit")
+    choice = input("Masukan pilihan (1/2/3/4/5/6/7): ")
+
+   
 
     if choice == "1":
-        search = input("Masukan Nama Brand yang Ingin Anda Cari: ").upper()
-        found_flag = False
-
-        for car in AllCars:
-            car.search_brand(search)
-            if car.found == 1:
-                found_flag = True
-
-        if not found_flag:
-            print(f"Pencarian {search} tidak membuahi hasil.")
+            search = input("Masukkan Nama Brand yang Ingin Anda Cari: ").upper()
+            found_flag = False
+            for car in AllCars:
+                car.search_brand(search)
+                if car.found == 1:
+                    found_flag = True
+            if not found_flag:
+                print(f"Pencarian {search} tidak membuahi hasil.")
 
     elif choice == "2":
-        Car.display_all_cars(AllCars)
+            Car.display_all_cars(AllCars)
 
     elif choice == "3":
-        jenis_kredit = input("Pilih tipe pemohon (perorangan/perusahaan): ").lower()
-        result = Car.ajukan_kredit(jenis_kredit)
-        print(result)
+            jenis_kredit = input("Pilih tipe pemohon (perorangan/perusahaan): ").lower()
+            result = Car.ajukan_kredit(jenis_kredit)
+            print(result)
 
     elif choice == "4":
-        print("Menutup aplikasi. Terimakasih!")
-        break
-    else:
-        print("Pilahan Invalid. Coba lagi (1/2/3/4).")
+            create_car()
 
-#operasi laain
+    elif choice == "5":
+            update_car_name()
+
+    elif choice == "6":
+            delete_model_from_car()
+
+    elif choice == "7":
+            print("Menutup aplikasi. Terimakasih!")
+            break
+
+    else:
+            print("Pilahan Invalid. Coba lagi (1/2/3/4/5/6/7).")
+
     another_action = input("Apakah ingin melakukan operasi lain? (yes/no): ")
     if another_action.lower() != "yes":
-        print("Menutup aplikasi. Terimakasih!")
-        break
+            print("Menutup aplikasi. Terimakasih!")
+            break

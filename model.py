@@ -13,3 +13,8 @@ class Model:
             price_str += f" + {self.two_tone_color_price} (Two-Tone Color)"
         print(f"- {self.name}: {price_str}")
 
+    def update_model_name(self, new_name):
+        self.name = new_name
+
+    def update_model_price(self, new_price):
+        self.price = new_price

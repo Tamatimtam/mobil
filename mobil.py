@@ -62,3 +62,12 @@ class Car:
             return "Kredit Berhasil!"
         else:
             return f"Kredit Gagal, Dokumen yang kurang: {', '.join(dokumen_kurang)}"
+
+    def update_brand_name(self, new_name):
+        self.name = new_name
+
+    def delete_model(self, model_name):
+        for model in self.models:
+            if model.name == model_name:
+                self.models.remove(model)
+                break
